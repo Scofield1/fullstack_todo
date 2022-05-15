@@ -1,0 +1,16 @@
+{% extends 'partial/base.html' %}
+{% block title %} Update Page  {% endblock title %}
+  {% block content %}
+  <section>
+    <div class="row mt-5">
+      <div class="col-md-6 offset-md-3">
+        <div class="bg-light p-3">
+          <form method="POST">{% csrf_token %}
+            {{ form }}
+          <input type="submit" value="Update" class="btn btn-success">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock content %}

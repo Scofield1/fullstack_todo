@@ -1,0 +1,74 @@
+{% extends 'partial/base.html' %}
+{% block title %} Home Page  {% endblock title %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="border p-3">
+                    <h4>Statistics</h4>
+                    <hr>
+                    <div class="border p-3">
+                        <h3>Total</h3>
+                        <h4 class="text-center">{{ total }}</h4>
+                    </div>
+
+                    <div class="border p-3 mt-2">
+                        <h3>Completed</h3>
+                        <h4 class="text-center">{{ completed }}</h4>
+                    </div>
+
+                    <div class="border p-3 mt-2">
+                        <h3>Uncompleted</h3>
+                        <h4 class="text-center">{{ uncompleted }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="border p-3">
+                    <form class="d-flex mb-3" method="GET">
+                        <input class="form-control me-2" name="q" type="search" placeholder="Search Todo"
+                               aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <form method="POST">{% csrf_token %}
+                        {{ form }}
+                        <input class="btn btn-success" type="submit" value="Add">
+                    </form>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">My Todos</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for model in models %}
+                        {% if model.complete == True %}
+                        <tr>
+                            <td><span><i class="bi bi-record-fill"></i></span><strike>{{ model }}</strike></td>
+                            <td><a class="btn btn-warning" href="update/{{ model.id }}">Edit</a> <a
+                                    class="btn btn-danger" href="delete/{{ model.id }}">Delete</a>
+                </div>
+                </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td><span><i class="bi bi-record"></i></span>{{ model|capfirst }}</td>
+                    <td><a class="btn btn-warning" href="update/{{ model.id }}">Edit</a> <a class="btn btn-danger"
+                                                                                            href="delete/{{ model.id }}">Delete</a>
+            </div>
+            </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock content %}
